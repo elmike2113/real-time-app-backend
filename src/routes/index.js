@@ -12,7 +12,7 @@ router.get("/auth/user/list",User.list)
 router.post("/auth/user/logout",User.logout)
 
 router.post("/auth/user/create/message",Message.createMessage)
-router.put("/auth/user/edit/message",Message.editMessage)
+router.post("/auth/user/edit/message",Message.editMessage)
 router.post("/auth/user/delete/message",Message.deleteMsg)
 router.get("/auth/user/list/message",Message.viewMsgDetail)
 
