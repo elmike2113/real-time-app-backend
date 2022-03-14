@@ -2,6 +2,7 @@ const { Mongoose } = require('mongoose')
 const User = require('../models/user')
 const monitoringdetail = require('../models/monitoring_detail')
 var jwt = require('jsonwebtoken')
+const moment =require('moment')
 
 module.exports.signup = async (req, res) => {
     try {
@@ -49,7 +50,7 @@ module.exports.login = async (req, res) => {
                             console.log("LOGIN SUCCESS")
                             res.json({ success: true, token: 'JWT ' + token, user: user });
                             try {
-                                let date = Date()
+                                let date = moment(new Date()).format(" MMMM Do YYYY, h:mm a");
                                 let _monitoringdetail = new monitoringdetail({
                                     'user': user.name,
                                     'punch' : true,
@@ -98,7 +99,7 @@ module.exports.list = async (req, res) => {
 
 module.exports.logout = async (req, res) => {
     try {
-        let date = Date()
+        let date = moment(new Date()).format(" MMMM Do YYYY, h:mm a");
         let _monitoringdetail = new monitoringdetail({
             'user': req.body.user,
             'punch' : false,

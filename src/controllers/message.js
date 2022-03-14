@@ -1,6 +1,7 @@
 const { Mongoose } = require('mongoose')
 const Message = require('../models/message')
 const monitoringdetail = require('../models/monitoring_detail')
+const moment =require('moment')
 
 module.exports.createMessage = async function(req,res){
     try {
@@ -11,10 +12,11 @@ module.exports.createMessage = async function(req,res){
             
         })
         _msg.save()
-        
+        let date = moment(new Date()).format(" MMMM Do YYYY, h:mm a");
         let _monitoringdetail = new monitoringdetail({
             'user': req.body.user,
-            'msg_action' : "Message Created"
+            'msg_action' : "Message Created",
+            'punching_time': date
             
         })
         _monitoringdetail.save()
@@ -39,9 +41,11 @@ module.exports.createMessage = async function(req,res){
                 else {
 
                     res.json({ success: true, msg: 'msg deleted' });
+                    let date = moment(new Date()).format(" MMMM Do YYYY, h:mm a");
                     let _monitoringdetail = new monitoringdetail({
                         'user': req.body.user,
-                        'msg_action' : "Message Deleted"
+                        'msg_action' : "Message Deleted",
+                        'punching_time': date
                          
                     })
                     _monitoringdetail.save()
@@ -72,9 +76,11 @@ module.exports.editMessage= async function(req,res){
                 else {
 
                     res.json({ success: true, msg: 'msg edited.' });
+                    let date = moment(new Date()).format(" MMMM Do YYYY, h:mm a");
                     let _monitoringdetail = new monitoringdetail({
                         'user': req.body.user,
-                        'msg_action' : "Message Edited"
+                        'msg_action' : "Message Edited",
+                        'punching_time': date
                         
                     })
                     _monitoringdetail.save()
